@@ -15,7 +15,7 @@
 
 ### 2. الحصول على مفاتيح API
 
-1. بعد إنشاء المشروع، اذهب إلى Settings > API
+1. بعد إنشاء المشروع، اذهب إلى Settings > 
 2. انسخ `Project URL` و `anon public` key
 3. افتح ملف `src/lib/supabase.ts`
 4. استبدل القيم التالية:
