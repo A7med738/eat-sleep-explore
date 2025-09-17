@@ -1,7 +1,12 @@
 import { Button } from "@/components/ui/button";
-import { Phone, MapPin, Clock } from "lucide-react";
+import { Phone, MapPin, Clock, Settings, ShoppingCart } from "lucide-react";
+import { Link } from "react-router-dom";
+import Cart from "./Cart";
+import { useCart } from "@/hooks/useCart";
 
 const Header = () => {
+  const { items, updateQuantity, removeFromCart, clearCart } = useCart();
+
   return (
     <header className="bg-background shadow-soft border-b border-border">
       <div className="container mx-auto px-4 py-4">
@@ -33,15 +38,45 @@ const Header = () => {
             </a>
           </nav>
 
+          {/* سلة الطلبات للهاتف المحمول */}
+          <div className="md:hidden">
+            <Cart 
+              items={items}
+              onUpdateQuantity={updateQuantity}
+              onRemoveItem={removeFromCart}
+              onClearCart={clearCart}
+            />
+          </div>
+
           {/* Contact Info */}
           <div className="hidden lg:flex items-center space-x-4 space-x-reverse">
             <div className="flex items-center space-x-2 space-x-reverse text-sm">
               <Phone className="w-4 h-4 text-primary" />
               <span className="font-arabic text-foreground">123-456-789</span>
             </div>
-            <Button variant="cta" size="sm" className="font-arabic">
-              اطلب الآن
-            </Button>
+            
+            {/* سلة الطلبات */}
+            <div className="flex items-center space-x-2 space-x-reverse">
+              <Cart 
+                items={items}
+                onUpdateQuantity={updateQuantity}
+                onRemoveItem={removeFromCart}
+                onClearCart={clearCart}
+              />
+              <Link to="/cart">
+                <Button variant="outline" size="sm" className="font-arabic">
+                  <ShoppingCart className="w-4 h-4 ml-2" />
+                  عرض السلة
+                </Button>
+              </Link>
+            </div>
+            
+            <Link to="/admin/login">
+              <Button variant="outline" size="sm" className="font-arabic">
+                <Settings className="w-4 h-4 ml-2" />
+                الإدارة
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
